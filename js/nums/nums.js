@@ -1,21 +1,36 @@
+console.log("HELLO NUMBERS!");
 const baseUrl = "http://numbersapi.com";
 
-console.log("HELLO NUMBERS!");
+/**
+ * This function will append data to my fact list
+ * @param {*} data - Any kind of data thatcould be turned into string
+ */
+function appendToFactList(data){
+    $("#nums-fact-list").append(`<li>${data}</li>`);
+}
+/**
+ * This function will clear the fact list and append to it the array of data its passed
+ * @param {array} data - An array of data to iterate through and add to fact list as list item elements
+ */
+function reBulletFactList(dataArr){
+    $("#nums-fact-list").empty();
+    dataArr.forEach(element => {
+        appendToFactList(element)
+    })
+	// $("#nums-fact-list").append(`<li>${fact.text}</li>`);
+}
 
-// PART 1.1
-// Make a request to the Numbers API (http://numbersapi.com/) to get a fact about your favorite number.
-// (Make sure you get back JSON by including the json query key, specific to this API. Details.
+/**
+ * PART 1.1
+ * Make a request to the Numbers API (http://numbersapi.com/) to get a fact about your favorite number.
+ * (Make sure you get back JSON by including the json query key, specific to this API. Details.
+ */
 
 let favNum = 0;
 console.log(`Current favorite #: ${favNum}`);
 
-async function getFact(num) {
+async function getOneFact(num) {
 	console.log(`Getting a fact about #${num}`);
-
-	// let { data: fact } = await axios.get(`${baseUrl}/l${num}?json`);
-	// console.log("Fact!:", fact.text);
-	// $('#nums-fact-list').empty();
-	// $('#nums-fact-list').append(`<li>${fact.text}</li>`);
 
 	try {
 		// grab data from response returned by axios, then rename it to fact
@@ -24,29 +39,65 @@ async function getFact(num) {
 		$("#nums-fact-list").empty();
 		$("#nums-fact-list").append(`<li>${fact.text}</li>`);
 	} catch (error) {
-        
-        // console.error("Name:",error.name);
-        // console.error("Code:",error.code);
-        // console.error("message:",error.message);
-        // console.error("Request:",error.request);
-        // console.error("Response:",error.response);
+		// console.error("Name:",error.name);
+		// console.error("Code:",error.code);
+		// console.error("message:",error.message);
+		// console.error("Request:",error.request);
+		// console.error("Response:",error.response);
 
-		console.error("Full On Error!!:\n",error);
-		
-        return;
+		console.error("Full On Error!!:\n", error);
+		// return;
 	}
 }
-getFact(4);
+// getOneFact(favNum);
 
-// PART 1.2
-// Figure out how to get data on multiple numbers in a single request.
-// Make that request and when you get the data back, put all of the number facts on the page.
+/**
+ * PART 1.2
+ * Figure out how to get data on multiple numbers in a single request.
+ * Make that request and when you get the data back, put all of the number facts on the page.
+ */
 
 // function callback for if you wish get a random number 0-100
 const getRandomInt = (min = 0, max = 100) =>
 	Math.floor(Math.random() * (max - min + 1)) + min;
 // make a list of numbers or use the random list of numbers
 let numListPromises = [];
+
+/**
+ * Retrieve facts about multiple numbers from the Numbers API.
+ * This function will take in an array of numbers and by default will retrieve a single fact from each.
+ * Then it will put the facts on the page.
+ *
+ * @param {Array} numsArr - An array of numbers for which to retrieve facts.
+ * @param {Number} [amountOfFactsPerNumber=1] - Number of facts to retrieve for each number.
+ */
+async function getMultipleFacts(numsArr, amountOfFactsPerNumber = 1) {
+    let result = ""
+
+    try{
+
+    } catch (error) {
+		// console.error("Name:",error.name);
+		// console.error("Code:",error.code);
+		// console.error("message:",error.message);
+		// console.error("Request:",error.request);
+		// console.error("Response:",error.response);
+
+		console.error("Full On Error!!:\n", error);
+		// return;
+	}
+}
+
+// let baseURL = "https://pokeapi.co/api/v2/pokemon";
+// let pokemon = await Promise.all([
+//   axios.get(`${baseURL}/1/`),
+//   axios.get(`${baseURL}/2/`),
+//   axios.get(`${baseURL}/3/`)
+// ]);
+// console.log("AxiosV2");
+// console.log(`The first pokemon is ${pokemon[0].data.name}`);
+// console.log(`The second pokemon is ${pokemon[1].data.name}`);
+// console.log(`The third pokemon is ${pokemon[2].data.name}`);
 
 // button listener to get more fatcs
 $("#getRandomFactsBtn").on("click", function () {
