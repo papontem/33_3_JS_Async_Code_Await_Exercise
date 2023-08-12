@@ -19,7 +19,7 @@ async function getFact(num) {
 
 	try {
 		// grab data from response returned by axios, then rename it to fact
-		let { data: fact } = await axios.get(`${baseUrl}/l${num}?json`);
+		let { data: fact } = await axios.get(`${baseUrl}/${num}?json`);
 		console.log("Fact!:", fact.text);
 		$("#nums-fact-list").empty();
 		$("#nums-fact-list").append(`<li>${fact.text}</li>`);
@@ -36,7 +36,7 @@ async function getFact(num) {
         return;
 	}
 }
-getFact(0);
+getFact(4);
 
 // PART 1.2
 // Figure out how to get data on multiple numbers in a single request.
