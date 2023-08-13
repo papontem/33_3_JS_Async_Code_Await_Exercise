@@ -1,23 +1,23 @@
 console.log("HELLO NUMBERS!");
 const baseUrl = "http://numbersapi.com";
+const $numFactListElement = $("#nums-fact-list")
 
 /**
  * This function will append data to my fact list
- * @param {*} data - Any kind of data thatcould be turned into string
+ * @param {*} data - Any kind of data that could be turned into string
  */
 function appendToFactList(data){
-    $("#nums-fact-list").append(`<li>${data}</li>`);
+    $numFactListElement.append(`<li>${data}</li>`);
 }
 /**
  * This function will clear the fact list and append to it the array of data its passed
  * @param {array} data - An array of data to iterate through and add to fact list as list item elements
  */
 function reBulletFactList(dataArr){
-    $("#nums-fact-list").empty();
+    $numFactListElement.empty();
     dataArr.forEach(element => {
         appendToFactList(element)
     })
-	// $("#nums-fact-list").append(`<li>${fact.text}</li>`);
 }
 
 /**
@@ -36,9 +36,10 @@ async function getOneFact(num) {
 		// grab data from response returned by axios, then rename it to fact
 		let { data: fact } = await axios.get(`${baseUrl}/${num}?json`);
 		console.log("Fact!:", fact.text);
-		$("#nums-fact-list").empty();
-		$("#nums-fact-list").append(`<li>${fact.text}</li>`);
-	} catch (error) {
+		// appendToFactList(fact.text)
+        reBulletFactList([fact.text])
+	
+    } catch (error) {
 		// console.error("Name:",error.name);
 		// console.error("Code:",error.code);
 		// console.error("message:",error.message);
@@ -72,9 +73,29 @@ let numListPromises = [];
  * @param {Number} [amountOfFactsPerNumber=1] - Number of facts to retrieve for each number.
  */
 async function getMultipleFacts(numsArr, amountOfFactsPerNumber = 1) {
-    let result = ""
-
+    
     try{
+        let responses = [];
+
+        for (let i = 0; i < numsArr.length; i++) {
+            for (let numOfFacts = 0; numOfFacts < amountOfFactsPerNumber; numOfFacts++) {
+                let res = axios.get(`${baseUrl}/${numsArr[i]}?json`);
+                responses.push(res)
+            }
+            
+        }
+
+        responses = await Promise.all(responses);
+        // console.log("responses:", responses);
+        
+        let responsesData = responses.map((res) => res.data)
+        // console.log("responsesData:", responsesData);
+
+        let numberFacts = responsesData.map((data) => data.text)
+        // console.log("numberFacts:", numberFacts);
+
+        reBulletFactList(numberFacts)
+
 
     } catch (error) {
 		// console.error("Name:",error.name);
@@ -84,20 +105,11 @@ async function getMultipleFacts(numsArr, amountOfFactsPerNumber = 1) {
 		// console.error("Response:",error.response);
 
 		console.error("Full On Error!!:\n", error);
-		// return;
+		return;
 	}
+
 }
 
-// let baseURL = "https://pokeapi.co/api/v2/pokemon";
-// let pokemon = await Promise.all([
-//   axios.get(`${baseURL}/1/`),
-//   axios.get(`${baseURL}/2/`),
-//   axios.get(`${baseURL}/3/`)
-// ]);
-// console.log("AxiosV2");
-// console.log(`The first pokemon is ${pokemon[0].data.name}`);
-// console.log(`The second pokemon is ${pokemon[1].data.name}`);
-// console.log(`The third pokemon is ${pokemon[2].data.name}`);
 
 // button listener to get more fatcs
 $("#getRandomFactsBtn").on("click", function () {
@@ -114,11 +126,11 @@ $("#getRandomFactsBtn").on("click", function () {
 
 	Promise.all(numListPromises)
 		.then((numApiResponses) => {
-			$("#nums-fact-list").empty();
+			$numFactListElement.empty();
 
 			numApiResponses.forEach((res) => {
 				const randFact = `Rand Fact: ${res.data.text}`;
-				$("#nums-fact-list").append(`<li>${randFact}</li>`);
+				$numFactListElement.append(`<li>${randFact}</li>`);
 			});
 		})
 		.catch((error) => {
@@ -160,13 +172,13 @@ $("#fav-number-form").on("submit", function (event) {
 	Promise.all(numListPromises)
 		.then((numApiResponses) => {
 			// uncomment if you want the list to refresh
-			$("#nums-fact-list").empty();
-			$("#nums-fact-list").append(
+			$numFactListElement.empty();
+			$numFactListElement.append(
 				`<p> -- Heres some trivia about # ${favNum} --</p>`
 			);
 			numApiResponses.forEach((res) => {
 				const randFact = `${res.data.text}`;
-				$("#nums-fact-list").append(`<li>${randFact}</li>`);
+				$numFactListElement.append(`<li>${randFact}</li>`);
 			});
 		})
 		.catch((error) => {
