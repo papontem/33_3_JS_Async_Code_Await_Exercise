@@ -186,35 +186,6 @@ $draw2CardsBtn.on('click', async function(){
     }
 });
 
-// $('#draw_2_Cards_Btn').on('click', function(){
-//     if (!deckId) {
-//         console.error('Deck ID is missing.');
-//         return;
-//     }
-    
-//     // once we have the deck id we can then call draw a card.
-//     // set this to the value of cards you want per draw, default has been one
-//     const numbOfCards = 1
-//     drawCardUrl =`${baseUrl}/deck/${deckId}/draw/?count=${numbOfCards}`
-//     // Draw a card from the deck
-//     axios.get(drawCardUrl)
-//         .then(drawnCardResJson => {
-//             console.log("RESOLVED! Heres Your Draw Card Json:", drawnCardResJson);
-
-//             let card = drawnCardResJson.data.cards[0];
-//             console.log(`Drawn Card: ${card.value} of ${card.suit}`);
-//             return axios.get(drawCardUrl)
-//         }).then(drawnCardResJson => {
-//             console.log("RESOLVED! Heres Your Draw Card Json:", drawnCardResJson);
-
-//             card = drawnCardResJson.data.cards[0];
-//             console.log(`Drawn Card: ${card.value} of ${card.suit}`);
-//         })
-//         .catch(error => {
-//             console.error('REJECTED!! ERROR:', error);
-//         });
-
-// });
 
 
 /*
@@ -223,6 +194,7 @@ Build an HTML page that lets you draw cards from a deck.
 When the page loads, go to the Deck of Cards API to create a new deck, and show a button on the page that will let you draw a card.
 Every time you click the button, display a new card, until there are no cards left in the deck.
  */
+
 
 // Listen for button click to draw a card
 // $('#anim_Draw_Card_Btn').on('click', function(){

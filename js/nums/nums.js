@@ -1,10 +1,10 @@
 console.log("HELLO NUMBERS!");
 
 const baseUrl = "http://numbersapi.com";
-const $favNumForm = $("#fav-number-form");
-const $favNumInput = $("#favNum");
-const $getRandomFactsBtn = $("#getRandomFactsBtn");
-const $numFactListElement = $("#nums-fact-list");
+const $favNumForm = $("#fav_number_form");
+const $favNumInput = $("#fav_Num");
+const $getRandomFactsBtn = $("#get_Random_Facts_Btn");
+const $numFactListElement = $("#nums_fact_list");
 
 /*------------------VVDOM Helper FunctionsVV---------------------------*/
 
@@ -49,11 +49,11 @@ async function getOneFact(num) {
 		appendToFactList(fact.text); // a) add to the list
 		// updateFactList([fact.text]); //b) replace the contents of the list
 	} catch (error) {
-		// console.error("Name:",error.name);
-		// console.error("Code:",error.code);
-		// console.error("message:",error.message);
-		// console.error("Request:",error.request);
-		// console.error("Response:",error.response);
+		console.error("Name:",error.name);
+		console.error("Code:",error.code);
+		console.error("message:",error.message);
+		console.error("Request:",error.request);
+		console.error("Response:",error.response);
 
 		console.error("Full On Error!!:\n", error);
 		// return;
@@ -134,5 +134,6 @@ It’s okay if some of the facts are repeats.
 $favNumForm.on("submit", function (event) {
 	event.preventDefault();
 	favNum = $favNumInput.val();
+	// console.log("favNum", favNum);
 	getMultipleFacts([favNum], 4);
 });
