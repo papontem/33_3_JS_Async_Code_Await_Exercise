@@ -97,7 +97,7 @@ class Deck {
 
 			return cards;
 		} catch (error) {
-			console.error("REJECTED!!\nError drawing cards:", error);
+			console.error("REJECTED!!\nError drawing cards from api:", error);
 		}
 	}
 }
@@ -139,7 +139,7 @@ $draw1CardBtn.on("click", async function () {
 		});
 	} catch (error) {
 		console.error(
-			"Error in drawing one card thorugh the draw once button:",
+			"Error in drawing one card through the draw once button:",
 			error
 		);
 	}
@@ -173,7 +173,7 @@ $draw2CardsBtn.on("click", async function () {
 		});
 	} catch (error) {
 		console.error(
-			"Error in drawing two cards thorugh the draw twice button:",
+			"Error in drawing two cards through the draw twice button:",
 			error
 		);
 	}
@@ -245,10 +245,9 @@ $animateDrawingACardBtn.on("click", async function () {
 			console.log(`Card Drawn: ${card.value} of ${card.suit}`);
 			appendToDOMCardPile(card);
 		});
-
 	} catch (error) {
 		console.error(
-			"Error in animating a render of drawing a card thorugh the Give me A Card Button:",
+			"Error in animating a render of drawing a card through the Give me A Card Button:",
 			error
 		);
 	}
