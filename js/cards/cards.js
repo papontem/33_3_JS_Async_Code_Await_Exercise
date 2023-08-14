@@ -14,6 +14,7 @@ let myDeck;
 
 class Deck {
 
+
     constructor() {
         this.deckId       = null;
         this.isShuffled   = null;
@@ -27,6 +28,7 @@ class Deck {
      * @throws {Error} Throws an error if there's a problem initializing the deck.
      */
     async init() {
+        console.log("Initializing.....");
         try {
 
 
@@ -56,7 +58,7 @@ class Deck {
         return this.numRemaining;
     }
 
-    // IN THE FURUTE: FUNCTION TO SORT THE CARDS IN OUR DECK, until then use shuffle or start a new deck
+    // IN THE FUTURE: FUNCTION TO SORT THE CARDS IN OUR DECK, until then use shuffle or start a new deck
 
     /**
      * Shuffles the deck using the current deck ID.
@@ -65,9 +67,11 @@ class Deck {
      * @throws {Error} Throws an error if there's a problem shuffling the deck.
      */
     async shuffle() {
+        console.log("Shuffling.....");
         try {
             let res = await axios.get(`${baseUrl}/deck/${this.deckId}/shuffle/`);
-            console.log("Deck Json:",res);
+            console.log("Shuffled Deck Json:",res);
+            this.isShuffled = true
         } catch (error) {
             console.error("REJECTED!!\nError shuffling deck:", error);
         }
@@ -83,6 +87,7 @@ class Deck {
      * @returns {Array} An array of drawn card objects.
      */
     async draw(amount = 1) {
+        console.log("Drawing.....");
         try {
             let res = await axios.get(`${baseUrl}/deck/${this.deckId}/draw/?count=${amount}`);
             console.log("Deck Draw Json:", res);
@@ -126,10 +131,14 @@ $('#drawCardBtn').on('click',async function(){
             console.error('Deck ID is missing.');
             myDeck = new Deck()
             myDeck.init()
+            console.log("Created a new deck for you:", myDeck);
         }
-        // once we have the deck id we can then call draw a card.
-        // Draw a card from the deck
-
+        // once we have the deck id we can shuffle it.
+        if(!myDeck.isShuffled){
+            console.log("Deck is not shuffled.");
+            await myDeck.shuffle()
+        }
+        // once we shuffle the deck we can tehn draw a card from it.
         let cards = await myDeck.draw()
         cards.forEach((card) => {
             console.log(`Card Drawn: ${card.value} of ${card.suit}`);
@@ -138,20 +147,6 @@ $('#drawCardBtn').on('click',async function(){
     } catch (error) {
         console.error("Error in drawing one card thorugh the draw once button:", error);
     }
-
-    // axios.get(drawCardUrl)
-    //     .then(drawnCardResJson => {
-    //         // console.log("RESOLVED! Heres Your Draw Card Json:", drawnCardResJson);
-
-    //         const card = drawnCardResJson.data.cards[0];
-    //         console.log(`Drawn Card: ${card.value} of ${card.suit}`);
-    //     })
-    //     .catch(error => {
-    //         console.error('REJECTED!! ERROR:', error);
-    //     });
-
-
-
 });
 
 
@@ -161,6 +156,8 @@ Make a request to the deck of cards API to request a single card from a newly sh
 Once you have the card, make a request to the same API to get one more card from the same deck.
 Once you have both cards, console.log the values and suits of both cards.
  */
+
+
 
 // $('#draw2CardsBtn').on('click', function(){
 //     if (!deckId) {
