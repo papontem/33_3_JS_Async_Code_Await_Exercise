@@ -27,7 +27,7 @@ function updateFactList(dataArr) {
 }
 /*------------------^^DOM Helper Functions^^---------------------------*/
 
-/**
+/*
 PART 1.1
 Make a request to the Numbers API (http://numbersapi.com/) to get a fact about your favorite number.
 (Make sure you get back JSON by including the json query key, specific to this API. Details.
@@ -61,7 +61,7 @@ async function getOneFact(num) {
 }
 // getOneFact(favNum);
 
-/**
+/*
 PART 1.2
 Figure out how to get data on multiple numbers in a single request.
 Make that request and when you get the data back, put all of the number facts on the page.
@@ -113,7 +113,7 @@ const getRandomInt = (min = 0, max = 100) => {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-// button listener to get one fatc from a random pick of numbers
+// button listener to get one fact each from a random pick of numbers
 $getRandomFactsBtn.on("click", function () {
 	// console.log(this);
 	$numFactListElement.empty();
@@ -123,10 +123,12 @@ $getRandomFactsBtn.on("click", function () {
 	getOneFact(getRandomInt());
 });
 
-// part 1.3
-// Use the API to get 4 facts on your favorite number.
-// Once you have them all, put them on the page.
-// It’s okay if some of the facts are repeats.
+/*
+Part 1.3
+Use the API to get 4 facts on your favorite number.
+Once you have them all, put them on the page.
+It’s okay if some of the facts are repeats.
+ */
 
 // pick your favorite number or any number really
 $favNumForm.on("submit", function (event) {
