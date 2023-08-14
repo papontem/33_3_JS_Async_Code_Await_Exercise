@@ -19,7 +19,7 @@ function appendToFactList(data) {
  * This function will clear the fact list and append to it the array of data its passed
  * @param {array} data - An array of data to iterate through and add to fact list as list item elements
  */
-function reBulletFactList(dataArr) {
+function updateFactList(dataArr) {
 	$numFactListElement.empty();
 	dataArr.forEach((element) => {
 		appendToFactList(element);
@@ -47,7 +47,7 @@ async function getOneFact(num) {
 		// Pick one of two a) add to the list or b) replace the contents of the list
 		// TODO: Decide how to implement a better way to read delivered trivia... scrolling?
 		appendToFactList(fact.text); // a) add to the list
-		// reBulletFactList([fact.text]); //b) replace the contents of the list
+		// updateFactList([fact.text]); //b) replace the contents of the list
 	} catch (error) {
 		// console.error("Name:",error.name);
 		// console.error("Code:",error.code);
@@ -95,7 +95,7 @@ async function getMultipleFacts(numsArr, fpn = 1) {
 		let numberFacts = responsesData.map((data) => data.text);
 		// console.log("numberFacts:", numberFacts);
 
-		reBulletFactList(numberFacts);
+		updateFactList(numberFacts);
 	} catch (error) {
 		// console.error("Name:",error.name);
 		// console.error("Code:",error.code);
@@ -132,5 +132,5 @@ $getRandomFactsBtn.on("click", function () {
 $favNumForm.on("submit", function (event) {
 	event.preventDefault();
 	favNum = $favNumInput.val();
-    getMultipleFacts([favNum], 4)
+	getMultipleFacts([favNum], 4);
 });

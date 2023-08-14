@@ -113,4 +113,5 @@ section {
 ul#nums-fact-list{
     margin: 20px;
     outline: dashed 2px black;
+	overflow: auto; 
 }
