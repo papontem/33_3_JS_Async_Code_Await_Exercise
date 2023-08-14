@@ -1,6 +1,9 @@
 console.log("HELLO DECK OF CARDS!");
 const baseUrl = 'https://deckofcardsapi.com/api';
 let myDeck;
+let $draw1CardBtn = $('#draw_1_Card_Btn')
+let $draw2CardsBtn = $('#draw_2_Cards_Btn')
+
 
 
 /**
@@ -123,10 +126,10 @@ if not well call this api url to create a new deck a new deck will be stored for
 */
 
 // Listen for button click to draw a card
-$('#drawCardBtn').on('click',async function(){
+$draw1CardBtn.on('click',async function(){
 
     try {
-        // check if our deck has a deck id , if not init to get id.
+        // check if our deck has a deck id , if not, init to get id.
         if (!myDeck.deckId) {
             console.error('Deck ID is missing.');
             myDeck = new Deck()
@@ -158,8 +161,32 @@ Once you have both cards, console.log the values and suits of both cards.
  */
 
 
+$draw2CardsBtn.on('click', async function(){
+    try {
+        // check if our deck has a deck id , if not, init to get id.
+        if (!myDeck.deckId) {
+            console.error('Deck ID is missing.');
+            myDeck = new Deck()
+            myDeck.init()
+            console.log("Created a new deck for you:", myDeck);
+        }
+        // once we have the deck id we can shuffle it.
+        if(!myDeck.isShuffled){
+            console.log("Deck is not shuffled.");
+            await myDeck.shuffle()
+        }
+        // once we shuffle the deck we can then draw the cards from it.
+        let cards = await myDeck.draw(2)
+        cards.forEach((card) => {
+            console.log(`Card Drawn: ${card.value} of ${card.suit}`);
+        });
 
-// $('#draw2CardsBtn').on('click', function(){
+    } catch (error) {
+        console.error("Error in drawing two cards thorugh the draw twice button:", error);
+    }
+});
+
+// $('#draw_2_Cards_Btn').on('click', function(){
 //     if (!deckId) {
 //         console.error('Deck ID is missing.');
 //         return;
@@ -198,7 +225,7 @@ Every time you click the button, display a new card, until there are no cards le
  */
 
 // Listen for button click to draw a card
-// $('#animDrawCardBtn').on('click', function(){
+// $('#anim_Draw_Card_Btn').on('click', function(){
 //     if (!deckId) {
 //         console.error('Deck ID is missing.');
 //         return;
@@ -216,7 +243,7 @@ Every time you click the button, display a new card, until there are no cards le
 //             // if no cards left after this....
 //             const remaining = drawnCardResJson.data.remaining
 //             if( remaining === 0){
-//                 $('#animDrawCardBtn').remove()
+//                 $('#anim_Draw_Card_Btn').remove()
 //             }
 
 //             const card = drawnCardResJson.data.cards[0];
@@ -229,7 +256,7 @@ Every time you click the button, display a new card, until there are no cards le
 //             // console.log(`shimmy it by: (${xShimmy}, ${yShimmy}) `)
 //             // console.log("Rotate By:", degRotate);
 //             // console.log(`Drawn Card: ${card.value} of ${card.suit}`);
-//             $('#cards-pile')
+//             $('#cards_pile')
 //             .append(
 //                 `<div class="card-wrapper" 
 //                     style="transform: rotate(${degRotate}deg);">

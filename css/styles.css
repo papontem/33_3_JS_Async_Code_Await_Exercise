@@ -77,13 +77,13 @@ section {
     border-radius: 5px;
     box-shadow: 0px 2px 4px var(--my-color10-70);
 }
-#warning-message{
+#warning_message{
 	color: var(--my-color9);
 }
 
 /* SPECIFIC PAGE STYLES */
 /* NUMBERS */
-ul#nums-fact-list{
+ul#nums_fact_list{
     margin: 20px;
     outline: dashed 2px black;
 	overflow: auto; 
@@ -96,14 +96,14 @@ ul#nums-fact-list{
     margin: 0;
     padding: 0;
 }
-#animDrawCardBtn{
+#anim_Draw_Card_Btn{
 	width:200px;
 	background-color: var(--my-color10);
 	color: var(--my-color1);
 	border-radius: 5px;
 	padding: 10px 0px;
 }
-#card-felt-canvas{
+#card_felt_canvas{
 	color: var(--my-color1);
 	background: linear-gradient(rgb(25, 75, 30), rgb(40, 110, 40), rgb(105, 190, 105));
 	border-radius: 5px;
@@ -112,7 +112,7 @@ ul#nums-fact-list{
 	margin: 10px;
 
 }
-#cards-pile{
+#cards_pile{
 	padding: 10px;
 	margin: 10px;
 }
