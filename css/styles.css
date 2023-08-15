@@ -118,7 +118,7 @@ ul#nums_fact_list{
 }
 .card-wrapper {
     position: absolute;
-    top: 50%; /* Center vertically */
+    top: 56%; /* Center vertically */
     left: calc(50% - 80px); /* Center horizontally */
 	transform: translate(-50%, -50%);
     
